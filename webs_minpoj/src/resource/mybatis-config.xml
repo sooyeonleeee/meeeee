@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- configuration위에 마우스 올리면 configuration안의 태그 순서가 나옴 -->
+<configuration>
+	<properties resource="oracle.properties"></properties>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+	<typeAliases>
+	<typeAlias type="com.sooyeon.entity.User" alias="User"/>
+	<typeAlias type="com.sooyeon.entity.Comment" alias="Comment"/>
+	<typeAlias type="com.sooyeon.entity.Reply" alias="Reply"/>
+	
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="JNDI">
+				<property name="data_source" value="${jndi_name}" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="mappers/userMapper.xml"/>
+		<mapper resource="mappers/commentMapper.xml"/>
+		<mapper resource="mappers/replyMapper.xml"/>
+	</mappers>
+</configuration>
