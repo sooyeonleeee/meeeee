@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<context:property-placeholder location="param.properties" />
+	<bean id="tiger" class="animal.Tiger" ></bean>
+	<bean id="lion" class="animal.Lion" ></bean>
+
+
+	<bean id="zoo" class="animal.Zoo">
+<!-- 		<property name="names">
+			<list>
+				<value>andy</value>
+				<value>henry</value>
+				<value>kate</value>
+			</list>
+		</property>
+		<property name="animals">
+			<set>
+				<ref bean="lion"/>
+				<ref bean="tiger" />
+			</set>
+		</property> -->
+		<property name="names" ref="names"></property>
+		<property name="animals" ref="animals"></property>
+	</bean>
+		
+		<util:list id="names">
+			<value>henry</value>
+			<value>andy</value>
+		</util:list>
+		
+		<util:set id="animals">
+			<ref bean="lion"/>
+			<ref bean="tiger"/>
+		</util:set>
+
+<context:annotation-config></context:annotation-config>
+
+</beans>
