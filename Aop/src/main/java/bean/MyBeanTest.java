@@ -18,24 +18,23 @@ public class MyBeanTest {
 	public static void main(String[] args) {
 		ApplicationContext ctx = new GenericXmlApplicationContext(
 				"bean_config.xml");
-		logger.trace("수업: " + ctx);
+		//logger.trace("수업: " + ctx);
 
 		Tiger tiger = ctx.getBean(Tiger.class);
-		logger.trace("수업: " + tiger);
+		//logger.trace("수업: " + tiger);
 
 		IBean bean = ctx.getBean(IBean.class);
-		logger.trace("수업: " + bean);
+		//logger.trace("수업: " + bean);
 
 		logger.trace("tester: " + bean.callMe("why?"));
 		logger.trace("tester: " + bean.showMe("your dream."));
 		// MyBean 클래스의 showMe함수 안에 1/0으로 exception 발생시킴
 		// exception이 발생하더라도 aop에 있는 before, after이 모두 실행됨.
 
-		logger.trace(bean.getClass().getName());
-		logger.trace(tiger.getClass().getName());
+		//logger.trace(bean.getClass().getName());
+		//logger.trace(tiger.getClass().getName());
 		
 		
 
-		
 	}
 }

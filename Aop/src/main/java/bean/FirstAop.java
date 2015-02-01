@@ -20,23 +20,27 @@ public class FirstAop {
 		logger = LoggerFactory.getLogger(FirstAop.class);
 	}
 	
-	@Before("execution(* *Me(..))")
+	/*@Before("execution(* *Me(..))")
 	public void enterlog(JoinPoint jp) {
 		logger.trace("method 시작 - "+jp.getSignature());
 	}
+	
 	@After("execution(* *Me(..))")
 	public void enter(JoinPoint jp) {
 		logger.trace("method 종료 - "+jp.getSignature());
 	}
+	
 	@AfterReturning(value="execution(* *Me(..))", returning="str")
 	public void changeReturnValue(JoinPoint jp, StringBuffer str) {
 		String str1 = str.toString();
 		logger.trace(str1.toUpperCase());
 	}
+	
 	@AfterThrowing(value="execution(* *Me(..))", throwing="e")
 	public void handleException(JoinPoint jp, Exception e) {
 		logger.trace("예외가 발생 - "+e);
-	}
+	}*/
+	
 	//around에서는 exception 조작, parameter 조작, result 조작 모두 가능
 	@Around("execution(* *Me(..))")
 	public Object around(ProceedingJoinPoint pjp) {
