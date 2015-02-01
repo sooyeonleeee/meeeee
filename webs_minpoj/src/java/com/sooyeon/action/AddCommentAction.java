@@ -53,9 +53,6 @@ public class AddCommentAction implements IAction {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		String path="/board/boardlist.jsp";
-		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-		dispatcher.forward(request, response);
+
 	}
 }
