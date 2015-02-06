@@ -9,6 +9,7 @@ import java.util.Map;
 
 import jdbc.entity.Department;
 import jdbc.entity.Employee;
+import jdbc.exception.ServiceFailException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-//@Repository
+@Repository
 public class DepartmentDaoJdbcImpl implements DepartmentDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -172,8 +173,9 @@ public class DepartmentDaoJdbcImpl implements DepartmentDao {
 		return result;
 	}
 
+	
 	@Override
-	public int updateDepartment(Department dept) {
+	public int updateDepartment(Department dept) throws ServiceFailException {
 		int result = 0;
 		/*String sql = "update departments set department_name=?, manager_id=?, location_id=?"+
 					" where department_id=?";
@@ -183,6 +185,10 @@ public class DepartmentDaoJdbcImpl implements DepartmentDao {
 				+ "manager_id=:managerId, location_id=:locationId where department_id=:departmentId";
 		BeanPropertySqlParameterSource beanProps = new BeanPropertySqlParameterSource(dept);
 		result = npjdbcTemplate.update(sql, beanProps);
+		// 언제나 발생시키는 exception
+		if(true) {
+			throw new ServiceFailException("무조건 실패해라");
+		}
 		return result;
 	}
 

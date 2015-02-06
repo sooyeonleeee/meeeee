@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
 	<context:property-placeholder location="oracle.properties" />
-	<context:component-scan base-package="jdbc"></context:component-scan>
+	<context:component-scan base-package="jdbc">
+	<!-- 설정 부분은 소스 안에 넣지 않고 모두 밖으로 빼는 것을 권장함
+			주석 처리 하지 않고 -->
+	<!-- <context:exclude-filter type="assignable" expression="jdbc.dao.DepartmentDaoJdbcImpl"/>
+	<context:excllude-filter type="regex" expression=".*Jdbc.*"/> -->
+	<!-- <context:exclude-filter type="aspectj" expression="jdbc..*MyBatisImpl"/>
+	 -->
+	</context:component-scan>
 
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<constructor-arg name="dataSource" ref="dataSource"></constructor-arg>
 	</bean>
-	
-	<bean id="npjdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+
+	<bean id="npjdbcTemplate"
+		class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
 		<constructor-arg name="dataSource" ref="dataSource"></constructor-arg>
 	</bean>
-	
+
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="${jdbc.driverClassName}" />
 		<property name="url" value="${jdbc.url}" />
@@ -22,14 +33,20 @@
 		<property name="password" value="${jdbc.password}" />
 		<property name="maxTotal" value="${jdbc.maxTotal}" />
 	</bean>
-	
+
 	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
-	<property name="dataSource" ref="dataSource"/>
-	<property name="configLocation" value="mybatis_config.xml"/>	
-	</bean>
-	
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" >
-	<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"/>
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="mybatis_config.xml" />
 	</bean>
 
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>

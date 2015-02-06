@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import jdbc.entity.Department;
+import jdbc.exception.ServiceFailException;
 
 public interface IService {
 	
@@ -16,6 +17,6 @@ public interface IService {
 	public List<Department> getDeptByManagerIdService(int managerId);
 	public Department getDeptByIdWithEmpService(int departmentId);
 	public int insertDeptService(Department dept);
-	public int updateDeptService(Department dept);
+	public int updateDeptService(Department dept) throws ServiceFailException;
 	public int deleteDeptService(int departmentId);
 }

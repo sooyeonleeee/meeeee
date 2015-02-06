@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import jdbc.entity.Department;
+import jdbc.exception.ServiceFailException;
 
 public interface DepartmentDao {
 	Integer getDepartmentCount();
@@ -19,6 +20,6 @@ public interface DepartmentDao {
 	Department getDepartmentByIdWithEmployees(int departmentId);
 	
 	int insertDepartment(Department dept);
-	int updateDepartment(Department dept);
+	int updateDepartment(Department dept) throws ServiceFailException;
 	int deleteDepartment(int departmentId);
 }

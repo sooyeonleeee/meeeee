@@ -5,13 +5,18 @@ import java.util.Map;
 
 import jdbc.dao.DepartmentDao;
 import jdbc.entity.Department;
+import jdbc.exception.ServiceFailException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(rollbackFor=jdbc.exception.ServiceFailException.class)
+//arithmeticException은 rollback 대상이 아님
+//runtimeException은 무조건 rollback 됨
 public class DepartmentService implements IService {
 
 	private final static Logger logger;
@@ -78,7 +83,7 @@ public class DepartmentService implements IService {
 	}
 
 	@Override
-	public int updateDeptService(Department dept) {
+	public int updateDeptService(Department dept) throws ServiceFailException {
 		// TODO Auto-generated method stub
 		int result = dao.updateDepartment(dept);
 		return result;

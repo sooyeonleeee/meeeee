@@ -1,6 +1,7 @@
 package jdbc.test;
 
 import jdbc.entity.Department;
+import jdbc.exception.ServiceFailException;
 import jdbc.service.IService;
 
 import org.slf4j.Logger;
@@ -27,13 +28,15 @@ public class ServiceTest {
 		//logger.trace("getDeptByManagerIdService(999) 호출 결과 : "+service.getDeptByManagerIdService(999));
 		//logger.trace("getDeptByIdWithEmpService(10) 호출 결과 : "+service.getDeptByIdWithEmpService(10));
 
-		//Department dept = new Department(999, "test", 100, 170);
+		Department dept = new Department(999, "test", 100, 170);
 		//logger.trace("insertDeptService() 호출 결과 : "+service.insertDeptService(dept));
-		//dept.setDepartmentName("test_update");
-		//logger.trace("updateDeptService() 호출 결과 : "+service.updateDeptService(dept));
+		dept.setDepartmentName("test_update55");
+		try {
+			logger.trace("updateDeptService() 호출 결과 : "+service.updateDeptService(dept));
+		} catch (ServiceFailException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//logger.trace("deleteDeptService() 호출 결과 : "+service.deleteDeptService(999));
-
 	}
-	
-
 }
