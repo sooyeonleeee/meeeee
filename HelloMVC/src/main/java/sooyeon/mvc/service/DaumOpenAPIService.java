@@ -13,10 +13,11 @@ import kr.or.kobis.kobisopenapi.consumer.rest.exception.OpenAPIFault;
 
 public class DaumOpenAPIService {
 	private String key;
-	private String host = "http://developers.daum.net/services/apis/contents/movie";
+	private String host;
 
 	public DaumOpenAPIService(String key) {
 		this.key = key;
+		this.host = "http://developers.daum.net/services/apis/contents/movie";
 	}
 
 	static class RequestUtil {
@@ -63,6 +64,7 @@ public class DaumOpenAPIService {
 		}
 	}
 
+	//요청방식 : host+?q=2012&apikey=
 	public static String mapToQueryString(Map<String, Object> map)
 			throws Exception {
 		StringBuilder string = new StringBuilder();
