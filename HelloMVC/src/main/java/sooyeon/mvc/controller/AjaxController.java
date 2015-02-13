@@ -29,10 +29,10 @@ public class AjaxController {
 		return "안녕 난 ajax라고 해."+msg;
 	}
 	
-	@RequestMapping(value="/daumapitest", method=RequestMethod.GET)
+	@RequestMapping(value="/api", method=RequestMethod.GET)
 	public String apiCall() {
-		//logger.trace("restService.jsp 호출......................");
-		return "daumapitest";
+		//logger.trace("restervice.jsp 호출......................");
+		return "restService2";
 	}
 	
 	/*@RequestMapping(value="/search", method=RequestMethod.POST, produces="text/plain;charset=utf-8") 

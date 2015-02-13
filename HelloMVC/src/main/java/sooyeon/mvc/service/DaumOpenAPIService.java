@@ -9,15 +9,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import kr.or.kobis.kobisopenapi.consumer.rest.KobisOpenAPIRestService;
 import kr.or.kobis.kobisopenapi.consumer.rest.exception.OpenAPIFault;
 
 public class DaumOpenAPIService {
-	private String key;
+	private String apikey;
 	private String host;
 
 	public DaumOpenAPIService(String key) {
-		this.key = key;
-		this.host = "http://developers.daum.net/services/apis/contents/movie";
+		this.apikey = apikey;
+		this.host = "http://apis.daum.net/contents/movie";
 	}
 
 	static class RequestUtil {
@@ -50,9 +51,9 @@ public class DaumOpenAPIService {
 			return returnMap;
 		}
 
-		protected static String requestGet(String key, String host,
+		protected static String requestGet(String apikey, String host,
 				boolean isJson, Map paramMap) throws OpenAPIFault, Exception {
-			paramMap.put("key", key);
+			paramMap.put("apikey", apikey);
 			StringBuffer sb = new StringBuffer(256);
 			sb.append(host).append(isJson ? ".json" : ".xml")
 					.append(DaumOpenAPIService.mapToQueryString(paramMap));
@@ -64,16 +65,14 @@ public class DaumOpenAPIService {
 		}
 	}
 
-	//요청방식 : host+?q=2012&apikey=
+	// 요청방식 : (host) + ? q=2012 & apikey=
 	public static String mapToQueryString(Map<String, Object> map)
 			throws Exception {
 		StringBuilder string = new StringBuilder();
 		for (Entry<String, Object> entry : map.entrySet()) {
 			if (entry.getValue() instanceof String
 					&& entry.getValue().toString().length() > 0) {
-				string.append("&");
-				string.append(entry.getKey());
-				string.append("=");
+				string.append("&apikey=");
 				string.append(URLEncoder.encode((String) entry.getValue(),
 						"UTF-8"));
 			} else if (entry.getValue() instanceof String[]) {
@@ -95,7 +94,7 @@ public class DaumOpenAPIService {
 
 	public String getMovieList(boolean isJson, Map paramMap)
 			throws OpenAPIFault, Exception {
-		return RequestUtil.requestGet(key, host, isJson, paramMap);
+		return RequestUtil.requestGet(apikey, host, isJson, paramMap);
 	}
 
 	public String getMovieList(String q, String pageno, String result,
@@ -113,16 +112,15 @@ public class DaumOpenAPIService {
 		}
 		return getMovieList(isJson, paramMap);
 	}
-/*
-	public String getMovieInfo(boolean isJson, Map paramMap)
-			throws OpenAPIFault, Exception {
-		return RequestUtil.requestGet(key, host, isJson, paramMap);
+	
+	public String getMovieInfo(boolean isJson,Map paramMap) throws OpenAPIFault, Exception{
+		return RequestUtil.requestGet(apikey, host, isJson, paramMap);
 	}
-
-	public String getMovieInfo(boolean isJson, String movieCd)
-			throws OpenAPIFault, Exception {
+	
+	public String getMovieInfo(boolean isJson, String q) throws OpenAPIFault, Exception{
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("movieCd", movieCd);
-		return getMovieInfo(isJson, paramMap);
-	}*/
+		paramMap.put("q", q);
+		return getMovieInfo(isJson,paramMap);
+	}
+	 
 }

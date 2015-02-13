@@ -19,8 +19,8 @@
 <%	
 	
 	String curPage = request.getParameter("curPage")==null?"1":request.getParameter("curPage");
-	String itemPerPage = request.getParameter("itemPerPage")==null?"10":request.getParameter("itemPerPage");
-	String movieNm = request.getParameter("movieNm")==null?"분홍신":request.getParameter("movieNm");
+	String itemPerPage = request.getParameter("itemPerPage")==null?"100":request.getParameter("itemPerPage");
+	String movieNm = request.getParameter("movieNm")==null?"":request.getParameter("movieNm");
 	String directorNm = request.getParameter("directorNm")==null?"":request.getParameter("directorNm");
 	String openStartDt = request.getParameter("openStartDt")==null?"":request.getParameter("openStartDt");
 	String openEndDt = request.getParameter("openEndDt")==null?"":request.getParameter("openEndDt");
